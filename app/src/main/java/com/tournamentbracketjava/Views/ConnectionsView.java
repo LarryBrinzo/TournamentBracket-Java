@@ -111,6 +111,7 @@ public class ConnectionsView extends View {
 
         mPath.moveTo(p1.x, p1.y);
         mPath.lineTo(p2.x, p2.y);
+        mPath.lineTo(p2.x, p2.y);
     }
 
     private void normalConnectionDraw(){
@@ -162,6 +163,7 @@ public class ConnectionsView extends View {
         mPath.moveTo(p1.x, p1.y);
         mPath.lineTo(p2.x, p2.y);
         mPath.lineTo(p3.x, p3.y);
+        mPath.lineTo(p3.x, p3.y);
 
     }
 
@@ -193,6 +195,7 @@ public class ConnectionsView extends View {
         mPath.moveTo(p1.x, p1.y);
         mPath.lineTo(p2.x, p2.y);
         mPath.lineTo(p3.x, p3.y);
+        mPath.lineTo(p4.x, p4.y);
         mPath.lineTo(p4.x, p4.y);
     }
 
