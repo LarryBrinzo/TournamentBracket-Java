@@ -116,16 +116,80 @@ public class ConnectionsView extends View {
 
     private void normalConnectionDraw(){
 
+        if(rows.get(toRowAndItemNumber.first - 1).getItems().get(0).size() >
+                rows.get(fromRowAndItemNumber.first - 1).getItems().get(0).size()){
+            fromLowerToHigherRowItems();
+        }
+
+        else {
+            fromHigherToLowerRowItems();
+        }
+
+    }
+
+    private void fromLowerToHigherRowItems(){
+
         int fromElementSize = 60, toElementSize = 60;
 
         if(!rows.get(fromRowAndItemNumber.first - 1).getItems().get(0).isEmpty())
-        fromElementSize = screenWidth / rows.get(fromRowAndItemNumber.first - 1).getItems().get(0).size();
+            fromElementSize = screenWidth / rows.get(fromRowAndItemNumber.first - 1).getItems().get(0).size();
 
         if(!rows.get(toRowAndItemNumber.first - 1).getItems().get(0).isEmpty())
-        toElementSize = screenWidth / rows.get(toRowAndItemNumber.first - 1).getItems().get(0).size();
+            toElementSize = screenWidth / rows.get(toRowAndItemNumber.first - 1).getItems().get(0).size();
+
+        int fromx = (fromElementSize*(fromRowAndItemNumber.second-1)) + ((fromElementSize - cardWidth)/2);
+
+        if(toRowAndItemNumber.second%2==0)
+            fromx+=cardWidth;
+
+        int tox;
+
+        if(toRowAndItemNumber.second%2==0)
+            tox = (toElementSize*toRowAndItemNumber.second) - (toElementSize/2);
+        else
+            tox = (toElementSize*(toRowAndItemNumber.second-1)) + (toElementSize/2);
+
+        if(rows.get(toRowAndItemNumber.first - 1).getItems().get(0).size() > 2){
+
+            if(toRowAndItemNumber.second%2==0)
+                tox +=cardWidth/14;
+            else
+                tox -=cardWidth/14;
+        }
+
+        if(toRowAndItemNumber.second%2==0)
+            tox += inc;
+        else tox -= inc;
+
+        int toy = (int) (starty + pxFromDp(context, 75f) * (toRowAndItemNumber.first - 1) +
+                pxFromDp(context, 35f));
+
+        int diffy = (int) (
+                pxFromDp(context, 75f) * ((toRowAndItemNumber.first-fromRowAndItemNumber.first)-1) +
+                        pxFromDp(context, 45f));
+
+        Point p1 = new Point(fromx,toy - diffy);
+        Point p2 = new Point(tox,toy - diffy);
+        Point p3 = new Point(tox,toy);
+
+        mPath.moveTo(p1.x, p1.y);
+        mPath.lineTo(p2.x, p2.y);
+        mPath.lineTo(p3.x, p3.y);
+        mPath.lineTo(p3.x, p3.y);
+    }
+
+    private void fromHigherToLowerRowItems(){
+
+        int fromElementSize = 60, toElementSize = 60;
+
+        if(!rows.get(fromRowAndItemNumber.first - 1).getItems().get(0).isEmpty())
+            fromElementSize = screenWidth / rows.get(fromRowAndItemNumber.first - 1).getItems().get(0).size();
+
+        if(!rows.get(toRowAndItemNumber.first - 1).getItems().get(0).isEmpty())
+            toElementSize = screenWidth / rows.get(toRowAndItemNumber.first - 1).getItems().get(0).size();
 
         int fromy = (int) (starty + pxFromDp(context, 75f) * fromRowAndItemNumber.first +
-                        pxFromDp(context, 20f));
+                pxFromDp(context, 20f));
 
         int fromx;
 
@@ -152,9 +216,9 @@ public class ConnectionsView extends View {
         else fromx -= inc;
 
         int diffy = (int) (pxFromDp(context, 15f) *
-                        (toRowAndItemNumber.first-fromRowAndItemNumber.first)+
-                        pxFromDp(context, 60f) * ((toRowAndItemNumber.first-fromRowAndItemNumber.first)-1) +
-                        pxFromDp(context, 30f));
+                (toRowAndItemNumber.first-fromRowAndItemNumber.first)+
+                pxFromDp(context, 60f) * ((toRowAndItemNumber.first-fromRowAndItemNumber.first)-1) +
+                pxFromDp(context, 30f));
 
         Point p1 = new Point(fromx,fromy);
         Point p2 = new Point(fromx,fromy + diffy);
@@ -164,7 +228,6 @@ public class ConnectionsView extends View {
         mPath.lineTo(p2.x, p2.y);
         mPath.lineTo(p3.x, p3.y);
         mPath.lineTo(p3.x, p3.y);
-
     }
 
     private void slantConnection(){
